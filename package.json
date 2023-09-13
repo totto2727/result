@@ -3,7 +3,7 @@
   "author": "totto2727 <kaihatu.totto2727@gmail.com>",
   "description": "Rust-inspired Result-type package",
   "license": "MIT",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "scripts": {
     "deploy": "",
     "build": "bun run build:transpile && bun run build:decolation",
