@@ -25,7 +25,7 @@ jobs:
         with:
           node-version: latest
           registry-url: https://registry.npmjs.org
-          scope: '@totto2727-org'
+          scope: '@totto2727'
 
       - name: Install
         run: bun install
@@ -34,6 +34,6 @@ jobs:
         run: bun precommit
 
       - name: Publish npm package
-        run: npm publish
+        run: npm publish --public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
