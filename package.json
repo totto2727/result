@@ -3,7 +3,7 @@
   "author": "totto2727 <kaihatu.totto2727@gmail.com>",
   "description": "Rust-inspired Result-type package",
   "license": "MIT",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "scripts": {
     "deploy": "",
     "build": "bun run build:transpile && bun run build:decolation",
@@ -23,12 +23,14 @@
   "exports": {
     ".": {
       "import": {
-            "types": "./types/index.d.ts",
-            "default": "./index.js"
+        "types": "./types/index.d.ts",
+        "default": "./index.js"
       }
     }
   },
-  "dependencies": { "remeda": "^1.26.0" },
+  "dependencies": {
+    "remeda": "^1.26.0"
+  },
   "devDependencies": {
     "@biomejs/biome": "1.1.2",
     "bun-types": "^1.0.1",
