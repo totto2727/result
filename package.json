@@ -23,8 +23,8 @@
   "exports": {
     ".": {
       "import": {
-        "default": "./index.js",
-        "types": "./types/index.d.ts"
+        "default": "./dist/index.js",
+        "types": "./dist/types/index.d.ts"
       }
     }
   },
