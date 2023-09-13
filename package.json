@@ -1,0 +1,37 @@
+{
+  "name": "@totto2727-org/result",
+  "author": "totto2727 <kaihatu.totto2727@gmail.com>",
+  "description": "Rust-inspired Result-type package",
+  "license": "MIT",
+  "version": "0.0.0",
+  "scripts": {
+    "deploy": "",
+    "build": "bun run build:transpile && bun run build:decolation",
+    "build:transpile": "bun build --outdir dist --target browser --format esm --minify --splitting index.ts",
+    "build:decolation": "tsc --project tsconfig.build.json",
+    "check": "bun run check:type && bun run check:static",
+    "check:type": "tsc --noEmit",
+    "check:static": "biome check .",
+    "fix": "biome check --apply-unsafe .",
+    "test": "bun test",
+    "precommit": "bun run check:type && bun run fix && bun run test && bun run build"
+  },
+  "type": "module",
+  "files": [
+    "index.ts"
+  ],
+  "exports": {
+    ".": {
+      "import": {
+            "types": "./types/index.d.ts",
+            "default": "./index.js"
+      }
+    }
+  },
+  "dependencies": { "remeda": "^1.26.0" },
+  "devDependencies": {
+    "@biomejs/biome": "1.1.2",
+    "bun-types": "^1.0.1",
+    "typescript": "5.2.2"
+  }
+}
