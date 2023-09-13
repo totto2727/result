@@ -34,6 +34,6 @@ jobs:
         run: bun precommit
 
       - name: Publish npm package
-        run: npm publish --public
+        run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
