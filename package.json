@@ -16,7 +16,7 @@
     "typescript"
   ],
   "license": "MIT",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "scripts": {
     "deploy": "",
     "build": "bun run build:transpile && bun run build:decolation",
@@ -30,7 +30,9 @@
     "precommit": "bun run check:type && bun run fix && bun run test && bun run build"
   },
   "type": "module",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "exports": {
     ".": {
       "import": {
