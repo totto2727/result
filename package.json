@@ -8,7 +8,6 @@
   },
   "keywords": [
     "result",
-    "typescript",
     "utils",
     "fp",
     "functional",
@@ -30,9 +29,9 @@
     "precommit": "bun run check:type && bun run fix && bun run test && bun run build"
   },
   "type": "module",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
+  "main": "./dist/index.js",
+  "types": "./dist/types/index.d.ts",
   "exports": {
     ".": {
       "import": {
