@@ -29,21 +29,17 @@
     "precommit": "bun run check:type && bun run fix && bun run test && bun run build"
   },
   "type": "module",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "main": "./dist/index.js",
   "types": "./dist/types/index.d.ts",
   "exports": {
     ".": {
       "import": {
-        "default": "./dist/index.js",
-        "types": "./dist/types/index.d.ts"
+        "types": "./dist/types/index.d.ts",
+        "import": "./dist/index.js",
+        "browser": "./dist/index.js"
       }
     }
-  },
-  "dependencies": {
-    "remeda": "^1.26.0"
   },
   "devDependencies": {
     "@biomejs/biome": "1.1.2",

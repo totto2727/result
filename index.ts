@@ -1,5 +1,3 @@
-import { isPromise } from "remeda";
-
 export type Failure<T> = {
   type: "failure";
   cause: T;
@@ -118,22 +116,25 @@ export function flatMapError<T, U, V>(
 export function tryCatch<T, U = unknown, V = ExcludeFailure<AnyhowFailure>>(
   successF: () => T,
   failureF: (e: U) => V,
-): T extends Promise<infer TP> ? Promise<Result<TP, V>> : Result<T, V> {
+): T extends PromiseLike<infer TP> ? PromiseLike<Result<TP, V>> : Result<T, V> {
   try {
     const success = successF();
-    if (isPromise(success)) {
-      return success
-        .then((v) => succeed(v))
-        .catch((e: U) => fail(failureF(e))) as T extends Promise<infer TP>
-        ? Promise<Result<TP, V>>
-        : never;
+    if (isThenable(success)) {
+      return success.then(
+        (v) => succeed(v),
+        (e: U) => fail(failureF(e)),
+      ) as T extends PromiseLike<infer TP> ? PromiseLike<Result<TP, V>> : never;
     }
-    return succeed(success) as T extends Promise<infer _>
+    return succeed(success) as T extends PromiseLike<infer _>
       ? never
       : Result<T, V>;
   } catch (e) {
-    return fail(failureF(e as U)) as T extends Promise<infer _>
+    return fail(failureF(e as U)) as T extends PromiseLike<infer _>
       ? never
       : Result<T, V>;
   }
+}
+
+function isThenable<T, S>(x: PromiseLike<T> | S): x is PromiseLike<T> {
+  return typeof (x as PromiseLike<unknown>).then === "function";
 }
