@@ -113,27 +113,31 @@ export function flatMapError<T, U, V>(
   };
 }
 
-export function tryCatch<T, U = unknown, V = ExcludeFailure<AnyhowFailure>>(
+export function tryCatch<T, U = unknown, V = unknown>(
   successF: () => T,
   failureF: (e: U) => V,
-): T extends PromiseLike<infer TP> ? PromiseLike<Result<TP, V>> : Result<T, V> {
+): Result<T, V> {
   try {
-    const success = successF();
-    if (isThenable(success)) {
-      return success.then(
-        (v) => succeed(v),
-        (e: U) => fail(failureF(e)),
-      ) as T extends PromiseLike<infer TP> ? PromiseLike<Result<TP, V>> : never;
-    }
-    return succeed(success) as T extends PromiseLike<infer _>
-      ? never
-      : Result<T, V>;
+    return succeed(successF());
   } catch (e) {
-    return fail(failureF(e as U)) as T extends PromiseLike<infer _>
-      ? never
-      : Result<T, V>;
+    return fail(failureF(e as U));
   }
 }
+
+export function tryCatchAsync<T, U = unknown, V = unknown>(
+  successF: () => PromiseLike<T>,
+  failureF: (e: U) => V,
+): PromiseLike<Result<T, V>> {
+  return successF().then(
+    (v) => succeed(v),
+    (e) => fail(failureF(e)),
+  );
+}
+
+const a = tryCatchAsync(
+  async () => 1,
+  () => 1,
+);
 
 function isThenable<T, S>(x: PromiseLike<T> | S): x is PromiseLike<T> {
   return typeof (x as PromiseLike<unknown>).then === "function";

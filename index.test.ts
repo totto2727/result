@@ -4,19 +4,37 @@ import * as r from "./index.js";
 
 describe("Result型のテスト", () => {
   describe("Success型のテスト", () => {
+    // type check
+    const x: r.Success<1> = { type: "success", value: 1 };
+
     test('succeed関数の返り値は`type: "success"`を持つ', () => {
-      expect(r.succeed("hoge")).toStrictEqual({
-        type: "success",
-        value: "hoge",
-      });
+      // type check
+      const y: r.Success<1> = r.succeed(1);
+      expect(y).toStrictEqual(x);
     });
 
-    test("isSuccess関数はSuccess型の時trueを返す", () => {
-      expect(r.isSuccess({ type: "success", value: "hoge" })).toBe(true);
+    const title1 =
+      "isSuccess function return true when Success type is taken as argument";
+    test(title1, () => {
+      const x = r.succeed(true);
+
+      if (!r.isSuccess(x)) {
+        throw new Error(title1);
+      }
+      // type check
+      expect(x.value).toBe(true);
     });
 
-    test("isSuccess関数はFailure型の時falseを返す", () => {
-      expect(r.isSuccess({ type: "failure", cause: "hoge" })).toBe(false);
+    const title2 =
+      "isSuccess function return false when Failure type is taken as argument";
+    test(title2, () => {
+      const x = r.fail(false);
+
+      if (r.isSuccess(x)) {
+        throw new Error(title2);
+      }
+      // type check
+      expect(x.cause).toBe(false);
     });
   });
 
@@ -165,26 +183,24 @@ describe("Result型のテスト", () => {
           ),
         ).toStrictEqual(r.fail("error"));
       });
+    });
 
-      test("tryCatch関数は非同期関数で例外が投げられなければ、Promise<Success>型を返す", async () => {
+    describe("tryCatchAsync関数のテスト", () => {
+      test("tryCatchAsync関数は非同期関数で例外が投げられなければ、PromiseLike<Success>型を返す", async () => {
         expect(
-          await r.tryCatch(
-            // eslint-disable-next-line @typescript-eslint/require-await
+          await r.tryCatchAsync(
             async () => 1 + 1,
-            // eslint-disable-next-line @typescript-eslint/require-await
             () => "error",
           ),
         ).toStrictEqual(r.succeed(2));
       });
 
-      test("tryCatch関数は非同期関数で例外が投げられると、Promise<Failure>型を返す", async () => {
+      test("tryCatchAsync関数は非同期関数で例外が投げられると、PromiseLike<Failure>型を返す", async () => {
         expect(
-          await r.tryCatch(
-            // eslint-disable-next-line @typescript-eslint/require-await
+          await r.tryCatchAsync(
             async () => {
               throw 1;
             },
-            // eslint-disable-next-line @typescript-eslint/require-await
             () => "error",
           ),
         ).toStrictEqual(r.fail("error"));
