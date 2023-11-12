@@ -8,12 +8,7 @@ export type TypedCause<TCauseType extends string, TCauseValue> = {
   value: TCauseValue;
 };
 
-export type TypedFailure<TTypedCause> = TTypedCause extends TypedCause<
-  infer TCauseType,
-  infer TCauseValue
->
-  ? Failure<TypedCause<TCauseType, TCauseValue>>
-  : never;
+export type TypedFailure<T extends TypedCause<string, unknown>> = Failure<T>;
 
 export type AnyhowFailure = Failure<unknown>;
 
@@ -58,12 +53,9 @@ export function isSuccess(
 
 export type Result<T, U> = Success<T> | Failure<U>;
 
-export type TypedResult<T, TFailure> = TFailure extends TypedCause<
-  infer TCauseType,
-  infer TCauseValue
->
-  ? Result<T, TypedCause<TCauseType, TCauseValue>>
-  : never;
+export type TypedResult<T, U extends TypedCause<string, unknown>> =
+  | Success<T>
+  | TypedFailure<U>;
 
 export type AnyhowResult<T> = Success<T> | AnyhowFailure;
 

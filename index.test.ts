@@ -100,13 +100,10 @@ describe("Result型のテスト", () => {
       >;
 
       // type check
-      const y = {
-        type: "failure",
-        cause: {
-          type: "InvalidStart",
-          value: "グリッドの生成基準点はBBoxの内部を指定してください",
-        },
-      } as r.TypedResult<number, InvalidStartPointCause | InvalidBearingCause>;
+      const y = r.failTyped(
+        "InvalidStart",
+        "グリッドの生成基準点はBBoxの内部を指定してください",
+      ) as r.TypedResult<number, InvalidStartPointCause | InvalidBearingCause>;
 
       if (r.isSuccess(x)) {
         // type check
