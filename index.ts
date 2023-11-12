@@ -3,9 +3,9 @@ export type Failure<T> = {
   cause: T;
 };
 
-export type TypedCause<TCauseType extends string, TCauseValue = undefined> = {
+export type TypedCause<TCauseType extends string, TCauseValue> = {
   type: TCauseType;
-  value?: TCauseValue;
+  value: TCauseValue;
 };
 
 export type TypedFailure<TTypedCause> = TTypedCause extends TypedCause<
@@ -25,22 +25,17 @@ export function fail<const T>(cause: T): Failure<T> {
 
 export function failTyped<const TCauseType extends string, const TCauseValue>(
   type: TCauseType,
-  value?: TCauseValue,
+  value: TCauseValue,
 ): TypedFailure<TypedCause<TCauseType, TCauseValue>> {
-  if (value)
-    return {
-      type: "failure",
-      cause: { type, value },
-    };
   return {
     type: "failure",
-    cause: { type },
+    cause: { type, value },
   };
 }
 
-export function isFailure<const T>(
-  result: Result<unknown, T>,
-): result is Failure<T> {
+export function isFailure(
+  result: Result<unknown, unknown>,
+): result is Failure<unknown> {
   return result.type === "failure";
 }
 
@@ -55,9 +50,9 @@ export function succeed<const T>(value: T): Success<T> {
   return { type: "success", value };
 }
 
-export function isSuccess<const T>(
-  result: Result<T, unknown>,
-): result is Success<T> {
+export function isSuccess(
+  result: Result<unknown, unknown>,
+): result is Success<unknown> {
   return result.type === "success";
 }
 

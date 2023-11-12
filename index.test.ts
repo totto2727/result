@@ -44,9 +44,9 @@ describe("Result型のテスト", () => {
     });
 
     test("failTyped関数は`cause: {type: string}`を返す", () => {
-      expect(r.failTyped("fuga")).toStrictEqual({
+      expect(r.failTyped("fuga", "")).toStrictEqual({
         type: "failure",
-        cause: { type: "fuga" },
+        cause: { type: "fuga", value: "" },
       });
     });
 
@@ -79,6 +79,66 @@ describe("Result型のテスト", () => {
       expect(
         r.isFailure({ type: "success", value: "hoge" } as r.Success<"hoge">),
       ).toBe(false);
+    });
+  });
+
+  describe("Result型のテスト", () => {
+    test("TypedResult型は複数の例外の可能性を内包することができる", () => {
+      type InvalidStartPointCause = r.TypedCause<
+        "InvalidStart",
+        "グリッドの生成基準点はBBoxの内部を指定してください"
+      >;
+      type InvalidBearingCause = r.TypedCause<
+        "InvalidBearing",
+        "角度は-45度から45度の範囲を代入してください"
+      >;
+
+      // type check
+      const x = { type: "success", value: 1 } as r.TypedResult<
+        number,
+        InvalidStartPointCause | InvalidBearingCause
+      >;
+
+      // type check
+      const y = {
+        type: "failure",
+        cause: {
+          type: "InvalidStart",
+          value: "グリッドの生成基準点はBBoxの内部を指定してください",
+        },
+      } as r.TypedResult<number, InvalidStartPointCause | InvalidBearingCause>;
+
+      if (r.isSuccess(x)) {
+        // type check
+        const a: number = x.value;
+      } else {
+        if (x.cause.type === "InvalidStart") {
+          // type check
+          const a: InvalidStartPointCause["value"] = x.cause.value;
+        } else if (x.cause.type === "InvalidBearing") {
+          // type check
+          const a: InvalidBearingCause["value"] = x.cause.value;
+        } else {
+          // type check
+          const a: never = x.cause;
+        }
+      }
+
+      if (r.isFailure(y)) {
+        if (y.cause.type === "InvalidStart") {
+          // type check
+          const a: InvalidStartPointCause["value"] = y.cause.value;
+        } else if (y.cause.type === "InvalidBearing") {
+          // type check
+          const a: InvalidBearingCause["value"] = y.cause.value;
+        } else {
+          // type check
+          const a: never = y.cause;
+        }
+      } else {
+        // type check
+        const a: number = y.value;
+      }
     });
   });
 
