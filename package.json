@@ -30,9 +30,7 @@
     "precommit": "bun run check:type && bun run fix && bun run test && bun run build"
   },
   "type": "module",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "main": "./dist/require/index.cjs",
   "module": "./dist/import/index.js",
   "types": "./dist/types/index.d.ts",
