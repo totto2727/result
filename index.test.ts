@@ -83,6 +83,14 @@ describe("Result型のテスト", () => {
   });
 
   describe("Result型のテスト", () => {
+    test("AnyhowResult型はあらゆる失敗の可能性を内包することができる", () => {
+      const v: r.AnyhowResult<number> = r.fail("AnyhowError");
+
+      if (r.isFailure(v)) {
+        const v2: unknown = v.cause;
+      }
+    });
+
     test("TypedResult型は複数の例外の可能性を内包することができる", () => {
       type InvalidStartPointCause = r.TypedCause<
         "InvalidStart",
