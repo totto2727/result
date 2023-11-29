@@ -18,9 +18,8 @@
   "version": "0.5.2",
   "scripts": {
     "deploy": "",
-    "build": "bun run build:vite && bun run build:transpile && bun run build:decolation",
+    "build": "bun run build:transpile && bun run build:decolation",
     "build:transpile": "bun build.ts",
-    "build:vite": "vite build",
     "build:decolation": "tsc --project tsconfig.build.json",
     "check": "bun run check:type && bun run check:static",
     "check:type": "tsc --noEmit",
@@ -30,23 +29,33 @@
     "precommit": "bun run check:type && bun run fix && bun run test && bun run build"
   },
   "type": "module",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "main": "./dist/require/index.cjs",
-  "module": "./dist/import/index.js",
   "types": "./dist/types/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
-      "browser": "./dist/browser/index.js",
       "import": "./dist/import/index.mjs",
       "require": "./dist/require/index.cjs"
+    },
+    "./eager": {
+      "types": "./dist/types/eager.d.ts",
+      "import": "./dist/import/eager.mjs",
+      "require": "./dist/require/eager.cjs"
+    },
+    "./lazy": {
+      "types": "./dist/types/lazy.d.ts",
+      "import": "./dist/import/lazy.mjs",
+      "require": "./dist/require/lazy.cjs"
     }
   },
   "devDependencies": {
     "@biomejs/biome": "1.1.2",
     "@changesets/cli": "^2.26.2",
     "bun-types": "^1.0.1",
-    "typescript": "5.2.2",
-    "vite": "^4.5.0"
+    "esbuild": "^0.19.8",
+    "typescript": "5.2.2"
   }
 }
