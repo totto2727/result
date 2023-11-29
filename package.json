@@ -20,7 +20,7 @@
     "deploy": "",
     "build": "bun run build:vite && bun run build:transpile && bun run build:decolation",
     "build:transpile": "bun build.ts",
-    "build:vite": "bun vite build",
+    "build:vite": "vite build",
     "build:decolation": "tsc --project tsconfig.build.json",
     "check": "bun run check:type && bun run check:static",
     "check:type": "tsc --noEmit",

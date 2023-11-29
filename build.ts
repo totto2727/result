@@ -1,6 +1,9 @@
+const targetBasePath = `${import.meta.dir ?? "."}/src`;
+const distBasePath = `${import.meta.dir ?? "."}/dist`;
+
 await Bun.build({
-  entrypoints: ["./index.ts"],
-  outdir: "./dist/browser",
+  entrypoints: [`${targetBasePath}/index.ts`],
+  outdir: `${distBasePath}/browser`,
   target: "browser",
   format: "esm",
   splitting: true,
@@ -9,8 +12,8 @@ await Bun.build({
 });
 
 await Bun.build({
-  entrypoints: ["./index.ts"],
-  outdir: "./dist/import",
+  entrypoints: [`${targetBasePath}/index.ts`],
+  outdir: `${distBasePath}/import`,
   target: "node",
   format: "esm",
   splitting: true,
