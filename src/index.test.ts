@@ -145,9 +145,7 @@ describe("Result型のテスト", () => {
         const a: number = y.value;
       }
     });
-  });
 
-  describe("ユーティリティ関数のテスト", () => {
     describe("unwrap関数のテスト", () => {
       test("unwrap関数はSuccess型の値を受け取った時、valueプロパティの値を返す", () => {
         expect(r.unwrap(r.succeed(1))).toBe(1);
@@ -157,7 +155,10 @@ describe("Result型のテスト", () => {
         expect(() => r.unwrap(r.fail(1))).toThrow();
       });
     });
+  });
 
+  describe("共通ユーティリティ関数のテスト", () => {
+    // TODO REMOVE
     describe("map関数のテスト", () => {
       const f = r.map((v: number) => v + 1);
 

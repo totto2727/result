@@ -64,6 +64,9 @@ export function unwrap<T, U>(result: Result<T, U>): T {
   return result.value;
 }
 
+/**
+ * @deprecated
+ */
 export function map<T, U, V>(
   f: (v: T) => U,
 ): (result: Result<T, V>) => Result<U, V> {
@@ -73,6 +76,9 @@ export function map<T, U, V>(
   };
 }
 
+/**
+ * @deprecated
+ */
 export function mapError<T, U>(
   f: (v: U) => T,
 ): (result: Result<T, U>) => Success<T> {
@@ -82,6 +88,9 @@ export function mapError<T, U>(
   };
 }
 
+/**
+ * @deprecated
+ */
 export function flatMap<T, U, V, W>(
   f: (x: T) => Result<V, W>,
 ): (result: Result<T, U>) => Result<V, U | W> {
@@ -91,6 +100,9 @@ export function flatMap<T, U, V, W>(
   };
 }
 
+/**
+ * @deprecated
+ */
 export function flatMapError<T, U, V>(
   f: (x: U) => Result<T, V>,
 ): (result: Result<T, U>) => Result<T, V> {
@@ -100,6 +112,9 @@ export function flatMapError<T, U, V>(
   };
 }
 
+/**
+ * @deprecated
+ */
 export function tryCatch<T, U = unknown, V = unknown>(
   successF: () => T,
   failureF: (e: U) => V,
@@ -111,6 +126,9 @@ export function tryCatch<T, U = unknown, V = unknown>(
   }
 }
 
+/**
+ * @deprecated
+ */
 export function tryCatchAsync<T, U = unknown, V = unknown>(
   successF: () => PromiseLike<T>,
   failureF: (e: U) => V,
@@ -119,13 +137,4 @@ export function tryCatchAsync<T, U = unknown, V = unknown>(
     (v) => succeed(v),
     (e) => fail(failureF(e)),
   );
-}
-
-const a = tryCatchAsync(
-  async () => 1,
-  () => 1,
-);
-
-function isThenable<T, S>(x: PromiseLike<T> | S): x is PromiseLike<T> {
-  return typeof (x as PromiseLike<unknown>).then === "function";
 }
