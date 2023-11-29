@@ -40,6 +40,18 @@
       "browser": "./dist/browser/index.js",
       "import": "./dist/import/index.mjs",
       "require": "./dist/require/index.cjs"
+    },
+    "./eager": {
+      "types": "./dist/types/eager.d.ts",
+      "browser": "./dist/browser/eager.js",
+      "import": "./dist/import/eager.mjs",
+      "require": "./dist/require/eager.cjs"
+    },
+    "./lazy": {
+      "types": "./dist/types/lazy.d.ts",
+      "browser": "./dist/browser/lazy.js",
+      "import": "./dist/import/lazy.mjs",
+      "require": "./dist/require/lazy.cjs"
     }
   },
   "devDependencies": {

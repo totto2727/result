@@ -6,5 +6,5 @@
     "declaration": true,
     "outDir": "./dist/types"
   },
-  "include": ["./src/index.ts"]
+  "include": ["./src/index.ts", "./src/eager.ts", "./src/lazy.ts"]
 }
