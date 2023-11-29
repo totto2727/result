@@ -15,7 +15,9 @@ Result(Either)型はKotlinやRust、Haskellに標準で導入されている型�
 - Next.js(App Router)やRemix、Qwik Cityといったクライアントサイドとサーバサイドを統合するフレームワークでも、スムーズにResult型の恩恵を受けることができます。
 
 ### 関数型プログラミングをしやすい
+
 <!-- - 遅延評価を前提に実装されています -->
+
 - 関数合成([remeda](https://remedajs.com/)の`pipe`関数や`flow`関数など)が容易な実装です
 
 ## インストール
@@ -113,9 +115,9 @@ type OriginalResult = Result<"成功", "失敗">
 
 ```typescript
 function returnResult(): Result<string, string> {
-  // なんらかの処理
-  if (error) return fail("任意のエラーに関する値");
-  return succeed("処理に成功しました！");
+    // なんらかの処理
+    if (error) return fail("任意のエラーに関する値");
+    return succeed("処理に成功しました！");
 }
 ```
 
@@ -132,19 +134,19 @@ function returnResult(): Result<string, string> {
 const result = returnResult()
 
 if (isSuccess(result)) {
-  // 処理に成功した時の処理
-  // result.valueがResult<T, U>のTに推論されます
-  const success = result.value;
+    // 処理に成功した時の処理
+    // result.valueがResult<T, U>のTに推論されます
+    const success = result.value;
 
-  // ...
+    // ...
 }
 
 if (isFailure(result)) {
-  // 処理に失敗した時の処理
-  // result.causeがResult<T, U>のUに推論されます
-  const failure = result.cause;
+    // 処理に失敗した時の処理
+    // result.causeがResult<T, U>のUに推論されます
+    const failure = result.cause;
 
-  // ...
+    // ...
 }
 ```
 
@@ -161,12 +163,12 @@ if (isFailure(result)) {
 export type AnyhowFailure = Failure<unknown>;
 
 function returnAnyhowResult(): AnyhowResult<string> {
-  // なんらかの処理
-  // fail関数はどのような値でも取れる
-  if (error1) return fail("任意のエラーに関する値");
-  else if (error2) return fail(1);
+    // なんらかの処理
+    // fail関数はどのような値でも取れる
+    if (error1) return fail("任意のエラーに関する値");
+    else if (error2) return fail(1);
 
-  return succeed("処理に成功しました！");
+    return succeed("処理に成功しました！");
 }
 ```
 
@@ -180,19 +182,19 @@ function returnAnyhowResult(): AnyhowResult<string> {
 ```typescript
 // 第1引数が型絞り込み用の文字列リテラル
 // 第2引数が失敗に関する任意の型
-type InternalCause = TypedCause<"InternalError", string>; 
+type InternalCause = TypedCause<"InternalError", string>;
 
 // 特定の失敗を返すためのラッパー関数
 function failInternal(message: string) {
-  return failTyped("InternalError", message);
+    return failTyped("InternalError", message);
 }
 
 function returnTypedResult(): TypedResult<string, InternalCause> {
-  // なんらかの処理
-  if (error1) return failInternal(JSON.stringify(error1))
-  else if (error2) return failInternal(JSON.stringify(error2))
+    // なんらかの処理
+    if (error1) return failInternal(JSON.stringify(error1))
+    else if (error2) return failInternal(JSON.stringify(error2))
 
-  return succeed("処理に成功しました！");
+    return succeed("処理に成功しました！");
 }
 ```
 
@@ -210,7 +212,57 @@ function returnTypedResult(): TypedResult<string, InternalCause> {
 ## 影響を受けた言語及びライブラリ
 
 - Rust
-  - Result
-  - [anyhow](https://docs.rs/anyhow/latest/anyhow/)
+    - Result
+    - [anyhow](https://docs.rs/anyhow/latest/anyhow/)
 - Swift
-  - 命名(JS標準の例外と重複することを避けるため)
+    - 命名(JS標準の例外と重複することを避けるため)
+
+## 開発者向け
+
+### 開発環境
+
+- 実行環境
+    - Bun >1.0.0
+- エディタ
+    - 現時点ではJetbrains IDEの設定のみ用意されています。
+    - 今後、VSCodeの設定ファイルを追加する予定です。
+
+### Jetbrains
+
+- Plugin
+    - [Biome](https://plugins.jetbrains.com/plugin/22761-biome)
+
+### VSCode
+
+TODO
+
+### 開発手順
+
+1. このリポジトリをフォークする
+2. フォークしたリポジトリをローカルにクローンしてプロジェクトルートに移動する
+3. パッケージのインストール
+   ```bash
+   bun i
+   ```
+4. 開発する
+5. 変更内容を記述する
+   ```bash
+   bun changeset
+   ```
+6. コミット前
+   ```bash
+   bun precommit
+   ```
+7. コミット＆プッシュ
+8. フォークしたリポジトリからプルリクエストを作成する
+9. 以下は管理者がバージョンアップする場合のみ
+10. バージョンの変更とプッシュ
+    ```bash
+    bun changeset version
+    ```
+11. mainブランチにマージする
+12. タグをつけてプッシュ
+    ```bash
+    bun changeset tag
+    ```
+13. CI/CDが自動でNPMに公開する
