@@ -60,7 +60,7 @@ export type TypedResult<T, U extends TypedCause<string, unknown>> =
 export type AnyhowResult<T> = Success<T> | AnyhowFailure;
 
 export function unwrap<T, U>(result: Result<T, U>): T {
-  if (isFailure(result)) throw result;
+  if (isFailure(result)) throw result.cause;
   return result.value;
 }
 
