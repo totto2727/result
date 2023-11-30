@@ -1,32 +1,32 @@
 import { fail, isFailure, isSuccess, Result, succeed } from "./index.ts";
 
 export function map<T, U, V>(
-  f: (v: T) => V,
   result: Result<T, U>,
+  f: (v: T) => V,
 ): Result<V, U> {
   if (isFailure(result)) return result;
   return succeed(f(result.value));
 }
 
 export function mapError<T, U, V>(
-  f: (v: U) => V,
   result: Result<T, U>,
+  f: (v: U) => V,
 ): Result<T, V> {
   if (isSuccess(result)) return result;
   return fail(f(result.cause));
 }
 
 export function flatMap<T, U, V, W>(
-  f: (x: T) => Result<V, W>,
   result: Result<T, U>,
+  f: (x: T) => Result<V, W>,
 ): Result<V, U | W> {
   if (isFailure(result)) return result;
   return f(result.value);
 }
 
 export function flatMapError<T, U, V, W>(
-  f: (x: U) => Result<V, W>,
   result: Result<T, U>,
+  f: (x: U) => Result<V, W>,
 ): Result<T | V, W> {
   if (isSuccess(result)) return result;
   return f(result.cause);
