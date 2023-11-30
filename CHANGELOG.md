@@ -1,5 +1,11 @@
 # @totto2727/result
 
+## 0.6.1
+
+### Patch Changes
+
+- docs/fix-typo
+
 ## 0.6.0
 
 ### Minor Changes
