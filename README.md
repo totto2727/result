@@ -58,7 +58,7 @@ import * as rLazy from "https://esm.sh/@totto2727/result/lazy"
 
 以下のサンプルは全てDenoおよびブラウザ環境を想定しています。
 
-### r.Result型を用いない場合
+### Result型を用いない場合
 
 ```ts
 // NANを返すことは避けたい
@@ -82,7 +82,7 @@ console.log(quotient);
 コメントやJS Docを記述することで対策は可能ですが、tscコマンドがコンパイルエラーを発生させることはありません。
 誰かかがうっかり0を渡すと、アプリケーションが予期せぬ例外により終了する可能性があります。
 
-### r.Result型を用いた場合
+### Result型を用いた場合
 
 ```ts
 import * as r from "https://esm.sh/@totto2727/result"
@@ -197,7 +197,7 @@ const value = r.unwrap(result);
 
 ## 応用の型
 
-### r.AnyhowResult
+### AnyhowResult
 
 どのような原因で失敗するかは不明な`Result`型の拡張です。
 この型でも失敗の原因を絞り込み、`cause`プロパティを利用することも可能ですが、`unknown`型になるため扱い辛くなります。
@@ -399,7 +399,7 @@ const piped = remeda.pipe(result, rLazy.flatMapError(fn2), rLazy.flatMapError(fn
 正格評価の場合、第一引数は引数を持たない関数となります。
 遅延評価の場合、第一引数は任意の引数を持つ関数となります。
 どちらの場合でも、例外発生時に実行される関数の引数の型は実装者が責任を持って設定する必要があります。
-どのような例外が発生するか不明な場合は、引数の方を`unknown`型に設定し、任意の`TypedCause`型を返却することで例外を扱いやすくなります。
+どのような例外が発生するか不明な場合は、引数の型を`unknown`型に設定し、任意の`TypedCause`型を返却することで例外を扱いやすくなります。
 
 ```ts
 import * as r from "https://esm.sh/@totto2727/result";
@@ -435,7 +435,7 @@ const result2: r.Result<number, string> = resultFn(2) // result1と同等のオ�
 正格評価の場合、第一引数は引数を持たない非同期関数となります。
 遅延評価の場合、第一引数は任意の引数を持つ非同期関数となります。
 どちらの場合でも、例外発生時に実行される関数の引数の型は実装者が責任を持って設定する必要があります。
-どのような例外が発生するか不明な場合は、引数の方を`unknown`型に設定し、任意の`TypedCause`型を返却することで例外を扱いやすくなります。
+どのような例外が発生するか不明な場合は、引数の型を`unknown`型に設定し、任意の`TypedCause`型を返却することで例外を扱いやすくなります。
 
 > **Note**
 >
@@ -477,7 +477,7 @@ const result2: r.Result<number, string> = await resultFn(2) // result1と同等�
 ## 影響を受けた言語及びライブラリ
 
 - Rust
-    - r.Result
+    - Result
     - [anyhow](https://docs.rs/anyhow/latest/anyhow/)
 - Swift
     - 命名(JS標準の例外と重複することを避けるため)
