@@ -83,6 +83,16 @@ describe("Result型のテスト", () => {
   });
 
   describe("Result型のテスト", () => {
+    test("ExtractSuccess型はResult型からSuccess型の型変数を抽出することができる", () => {
+      type OriginalResult = r.Result<number, string>;
+      const a: r.ExtractSuccess<OriginalResult> = 1;
+    })
+
+    test("ExtractFailure型はResult型からFailure型の型変数を抽出することができる", () => {
+      type OriginalResult = r.Result<number, string>;
+      const b: r.ExtractFailure<OriginalResult> = "1";
+    })
+
     test("AnyhowResult型はあらゆる失敗の可能性を内包することができる", () => {
       const v: r.AnyhowResult<number> = r.fail("AnyhowError");
 

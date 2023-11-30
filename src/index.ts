@@ -12,6 +12,11 @@ export type TypedFailure<T extends TypedCause<string, unknown>> = Failure<T>;
 
 export type AnyhowFailure = Failure<unknown>;
 
+export type ExtractFailure<T> = T extends Failure<infer U> ? U : never;
+
+/**
+ * @deprecated
+ */
 export type ExcludeFailure<T> = T extends Failure<infer U> ? U : never;
 
 export function fail<const T>(cause: T): Failure<T> {
@@ -39,6 +44,11 @@ export type Success<T> = {
   value: T;
 };
 
+export type ExtractSuccess<T> = T extends Success<infer U> ? U : never;
+
+/**
+ * @deprecated
+ */
 export type ExcludeSuccess<T> = T extends Success<infer U> ? U : never;
 
 export function succeed<const T>(value: T): Success<T> {
