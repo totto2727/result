@@ -1,0 +1,9 @@
+{
+  "extends": ["./tsconfig.build.base.json"],
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "classic",
+    "outDir": "./dist/require"
+  },
+  "include": ["./src/index.cts", "./src/eager.cts", "./src/lazy.cts"]
+}

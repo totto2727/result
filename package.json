@@ -18,37 +18,49 @@
   "version": "0.6.1",
   "scripts": {
     "deploy": "",
-    "build": "bun run build:transpile && bun run build:decolation",
-    "build:transpile": "bun build.ts",
-    "build:decolation": "tsc --project tsconfig.build.json",
+    "build": "bun run build:transpile && bun run build:esm && bun run build:cjs",
+    "build:transpile": "bun build.mts",
+    "build:esm": "tsc --project tsconfig.build.esm.json",
+    "build:cjs": "tsc --project tsconfig.build.cjs.json",
     "check": "bun run check:type && bun run check:static",
     "check:type": "tsc --noEmit",
-    "check:static": "biome check *.ts *.json",
-    "fix": "biome check --apply-unsafe *.ts *.json",
+    "check:static": "biome check **/*.json **/*.yaml **/*.*ts",
+    "fix": "bun check:static --apply-unsafe",
     "test": "bun test",
-    "precommit": "bun run check:type && bun run fix && bun run test && bun run build"
+    "precommit": "bun run check:type && bun run fix && bun run test && bun run build",
+    "prepublish": "attw --pack ."
   },
-  "type": "module",
-  "files": [
-    "dist"
-  ],
-  "main": "./dist/require/index.cjs",
-  "types": "./dist/types/index.d.ts",
+  "files": ["src", "dist", "package.json", "tsconfig.json", "LICENSE"],
   "exports": {
     ".": {
-      "types": "./dist/types/index.d.ts",
-      "import": "./dist/import/index.mjs",
-      "require": "./dist/require/index.cjs"
+      "import": {
+        "default": "./dist/import/index.mjs",
+        "types": "./dist/import/index.d.mts"
+      },
+      "require": {
+        "default": "./dist/require/index.cjs",
+        "types": "./dist/require/index.d.cts"
+      }
     },
     "./eager": {
-      "types": "./dist/types/eager.d.ts",
-      "import": "./dist/import/eager.mjs",
-      "require": "./dist/require/eager.cjs"
+      "import": {
+        "default": "./dist/import/eager.mjs",
+        "types": "./dist/import/eager.d.mts"
+      },
+      "require": {
+        "default": "./dist/require/eager.cjs",
+        "types": "./dist/require/eager.d.cts"
+      }
     },
     "./lazy": {
-      "types": "./dist/types/lazy.d.ts",
-      "import": "./dist/import/lazy.mjs",
-      "require": "./dist/require/lazy.cjs"
+      "import": {
+        "default": "./dist/import/lazy.mjs",
+        "types": "./dist/import/lazy.d.mts"
+      },
+      "require": {
+        "default": "./dist/require/lazy.cjs",
+        "types": "./dist/require/lazy.d.cts"
+      }
     }
   },
   "devDependencies": {
@@ -57,5 +69,8 @@
     "bun-types": "^1.0.1",
     "esbuild": "^0.19.8",
     "typescript": "5.2.2"
+  },
+  "dependencies": {
+    "@arethetypeswrong/cli": "^0.13.3"
   }
 }
