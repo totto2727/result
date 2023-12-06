@@ -72,5 +72,5 @@ workflows:
             tags:
               only: /^v.*/
             branches:
-              onlu: main
+              only: main
 
