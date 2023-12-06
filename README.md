@@ -22,6 +22,16 @@ Result(Either)型はKotlinやRust、Haskellに標準で導入されている型�
 
 ## インストール
 
+### 前提
+
+`tsconfig.json`は以下の設定のいずれかである必要があります。
+
+```
+"moduleResolution": "node16",
+"moduleResolution": "nodenext",
+"moduleResolution": "bundler",
+```
+
 ### Node.js or Bun
 
 ```bash

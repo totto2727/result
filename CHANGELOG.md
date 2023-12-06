@@ -1,5 +1,12 @@
 # @totto2727/result
 
+## 0.6.2
+
+### Patch Changes
+
+- pass attw test except node10
+- removed support for node10
+
 ## 0.6.1
 
 ### Patch Changes

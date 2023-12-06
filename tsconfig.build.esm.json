@@ -1,0 +1,7 @@
+{
+  "extends": ["./tsconfig.build.base.json"],
+  "compilerOptions": {
+    "outDir": "./dist/import/"
+  },
+  "include": ["./src/index.mts", "./src/eager.mts", "./src/lazy.mts"]
+}

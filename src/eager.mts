@@ -1,4 +1,4 @@
-import { fail, isFailure, isSuccess, Result, succeed } from "./index.ts";
+import { Result, fail, isFailure, isSuccess, succeed } from "./index.mts";
 
 export function map<T, U, V>(
   result: Result<T, U>,

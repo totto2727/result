@@ -1,6 +1,6 @@
+import * as r from "./index.mts";
+import * as rutil from "./lazy.mts";
 import { describe, expect, test } from "bun:test";
-import * as r from "./index.ts";
-import * as rutil from "./lazy.ts";
 
 describe("共通ユーティリティ関数のテスト", () => {
   describe("map関数のテスト", () => {
