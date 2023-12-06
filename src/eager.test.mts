@@ -1,6 +1,6 @@
+import { describe, expect, test } from "bun:test";
 import * as rutil from "./eager.mts";
 import * as r from "./index.mts";
-import { describe, expect, test } from "bun:test";
 
 describe("ユーティリティ関数のテスト", () => {
   describe("map関数のテスト", () => {

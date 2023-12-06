@@ -3,7 +3,7 @@ import { Result, fail, isFailure, isSuccess, succeed } from "./index.mts";
 export function map<T, U, V>(
   f: (v: T) => V,
 ): (result: Result<T, U>) => Result<V, U> {
-  return function (r) {
+  return (r) => {
     if (isFailure(r)) return r;
     return succeed(f(r.value));
   };
@@ -12,7 +12,7 @@ export function map<T, U, V>(
 export function mapError<T, U, V>(
   f: (v: U) => V,
 ): (result: Result<T, U>) => Result<T, V> {
-  return function (r) {
+  return (r) => {
     if (isSuccess(r)) return r;
     return fail(f(r.cause));
   };
@@ -21,7 +21,7 @@ export function mapError<T, U, V>(
 export function flatMap<T, U, V, W>(
   f: (x: T) => Result<V, W>,
 ): (result: Result<T, U>) => Result<V, U | W> {
-  return function (result) {
+  return (result) => {
     if (isFailure(result)) return result;
     return f(result.value);
   };
@@ -30,7 +30,7 @@ export function flatMap<T, U, V, W>(
 export function flatMapError<T, U, V, W>(
   f: (x: U) => Result<V, W>,
 ): (result: Result<T, U>) => Result<T | V, W> {
-  return function (result) {
+  return (result) => {
     if (isSuccess(result)) return result;
     return f(result.cause);
   };

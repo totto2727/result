@@ -15,7 +15,7 @@
     "typescript"
   ],
   "license": "MIT",
-  "version": "0.6.3",
+  "version": "0.6.4",
   "scripts": {
     "deploy": "",
     "build": "bun run build:transpile && bun run build:esm && bun run build:cjs",
@@ -24,7 +24,7 @@
     "build:cjs": "tsc --project tsconfig.build.cjs.json",
     "check": "bun run check:type && bun run check:static",
     "check:type": "tsc --noEmit",
-    "check:static": "biome check **/*.json **/*.yaml **/*.*ts",
+    "check:static": "biome check .",
     "fix": "bun check:static --apply-unsafe",
     "test": "bun test",
     "precommit": "bun run check:type && bun run fix && bun run test && bun run build",
@@ -70,11 +70,11 @@
     }
   },
   "devDependencies": {
-    "@biomejs/biome": "1.1.2",
-    "@changesets/cli": "^2.26.2",
-    "bun-types": "^1.0.1",
+    "@biomejs/biome": "1.4.1",
+    "@changesets/cli": "^2.27.1",
+    "bun-types": "^1.0.15",
     "esbuild": "^0.19.8",
-    "typescript": "5.2.2"
+    "typescript": "5.3.2"
   },
   "dependencies": {
     "@arethetypeswrong/cli": "^0.13.3"

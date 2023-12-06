@@ -1,5 +1,16 @@
 # @totto2727/result
 
+## 0.6.4
+
+### Patch Changes
+
+- update packages
+
+  - ci: add circleci config
+  - ci: refactor biome config
+  - feat: update packages
+  - style: apply format
+
 ## 0.6.3
 
 ### Patch Changes
