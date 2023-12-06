@@ -60,6 +60,7 @@ jobs:
             npm publish
 
 workflows:
+  version: 2
   CI:
     jobs:
       - Check
