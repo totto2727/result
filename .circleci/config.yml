@@ -1,0 +1,75 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@5.0.0
+
+executors:
+  base:
+    resource_class: medium
+    docker:
+      - image: oven/bun
+
+commands:
+  setup-node:
+    steps:
+      - run: apt update -y
+      - run: apt install -y curl
+      - node/install:
+          node-version: "20"
+
+  setup-bun:
+    steps: 
+      - run: echo 'export PATH=$HOME/.bun/bin:$PATH' >> "$BASH_ENV"
+
+  setup-ni:
+    steps:
+      - setup-node
+      - setup-bun
+      - run: bun i -g @antfu/ni
+      - run: ni 
+
+jobs:
+  Build:
+    executor: base
+    steps:
+      - checkout
+      - setup-ni
+      - run: nr build
+  Check:
+    executor: base
+    steps:
+      - checkout
+      - setup-ni
+      - run: nr check
+  UnitTest:
+    executor: base
+    steps:
+      - checkout
+      - setup-ni
+      - run: nr test
+  Publish:
+    executor: base
+    steps:
+      - checkout
+      - setup-ni
+      - run: nr build
+      - run:
+          name: Publish to NPM
+          command: |
+            npm set //registry.npmjs.org/:_authToken=$NPM_TOKEN
+            npm publish
+
+workflows:
+  CI:
+    jobs:
+      - Check
+      - Build
+      - UnitTest
+  CD:
+    jobs:
+      - Publish:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /v[0-9]+(\.[0-9]+)*/
