@@ -1,5 +1,11 @@
 # @totto2727/result
 
+## 0.6.3
+
+### Patch Changes
+
+- fix: make default property last
+
 ## 0.6.2
 
 ### Patch Changes

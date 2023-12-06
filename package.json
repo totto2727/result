@@ -15,7 +15,7 @@
     "typescript"
   ],
   "license": "MIT",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "scripts": {
     "deploy": "",
     "build": "bun run build:transpile && bun run build:esm && bun run build:cjs",
@@ -40,32 +40,32 @@
   "exports": {
     ".": {
       "import": {
-        "default": "./dist/import/index.mjs",
-        "types": "./dist/import/index.d.mts"
+        "types": "./dist/import/index.d.mts",
+        "default": "./dist/import/index.mjs"
       },
       "require": {
-        "default": "./dist/require/index.cjs",
-        "types": "./dist/require/index.d.cts"
+        "types": "./dist/require/index.d.cts",
+        "default": "./dist/require/index.cjs"
       }
     },
     "./eager": {
       "import": {
-        "default": "./dist/import/eager.mjs",
-        "types": "./dist/import/eager.d.mts"
+        "types": "./dist/import/eager.d.mts",
+        "default": "./dist/import/eager.mjs"
       },
       "require": {
-        "default": "./dist/require/eager.cjs",
-        "types": "./dist/require/eager.d.cts"
+        "types": "./dist/require/eager.d.cts",
+        "default": "./dist/require/eager.cjs"
       }
     },
     "./lazy": {
       "import": {
-        "default": "./dist/import/lazy.mjs",
-        "types": "./dist/import/lazy.d.mts"
+        "types": "./dist/import/lazy.d.mts",
+        "default": "./dist/import/lazy.mjs"
       },
       "require": {
-        "default": "./dist/require/lazy.cjs",
-        "types": "./dist/require/lazy.d.cts"
+        "types": "./dist/require/lazy.d.cts",
+        "default": "./dist/require/lazy.cjs"
       }
     }
   },
