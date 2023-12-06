@@ -63,14 +63,19 @@ workflows:
   CI:
     jobs:
       - Check
-      - Build
       - UnitTest
   CD:
     jobs:
-      - Publish:
+      - Build:
           filters:
             tags:
               only: /^v.*/
+      - Publish:
+          requires:
+            - Build      
+          filters:
             branches:
-              only: main
+              ignore: /.*/
+            tags:
+              only: /^v.*/
 
