@@ -15,7 +15,7 @@
     "typescript"
   ],
   "license": "MIT",
-  "version": "0.6.8-2",
+  "version": "0.6.8",
   "scripts": {
     "deploy": "",
     "build": "bun run build:transpile && bun run build:esm && bun run build:cjs",
