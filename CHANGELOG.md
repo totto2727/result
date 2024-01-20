@@ -1,5 +1,13 @@
 # @totto2727/result
 
+## 0.6.8
+
+### Patch Changes
+
+- optimize-dependencies
+
+  - fix/move-from-dependencies-to-devDependencie
+
 ## 0.6.4
 
 ### Patch Changes
