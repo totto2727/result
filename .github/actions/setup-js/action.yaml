@@ -1,0 +1,28 @@
+name: setup js
+description: "setup-javascript"
+
+runs:
+  using: composite
+  steps:
+    - name: Setup Bun
+      uses: oven-sh/setup-bun@v1
+      with:
+        bun-version: latest
+
+    - name: Setup Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: latest
+        registry-url: https://registry.npmjs.org
+        scope: '@totto2727'
+
+    - name: Setup nr
+      shell: bash
+      run: bun install -g @antfu/ni
+
+    - name: Install
+      shell: bash
+      run: ni
+
+
+
