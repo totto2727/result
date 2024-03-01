@@ -1,3 +1,9 @@
+現在このリポジトリはアーカイブされています。
+
+こちらのリポジトリで引き続き改善を続けています。
+
+https://github.com/totto2727-org/js-package/tree/main/package/result
+
 # result
 
 ## 概要
